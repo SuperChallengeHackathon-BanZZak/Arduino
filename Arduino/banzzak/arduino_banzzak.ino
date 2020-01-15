@@ -588,7 +588,12 @@ void loop(){
     char bt;
     bt=BTSerial.read();
     if(bt=='s'){              //시작
-      normal();   
+      normal();  
+      for(int i=0; i<strip.numPixels(); i++){
+          strip.setPixelColor(i,strip.Color(255,255,255)); // 백색(전력 가장 많이 먹음)
+          strip.show();
+          delay(100);
+      }
     }
     if(bt=='e'){               //끝
       for(int num=0; num<4; num++){
@@ -621,6 +626,12 @@ void loop(){
       
     }
     if(bt=='c'){              //맞음
+      for(int i=0; i<strip.numPixels(); i++){
+          strip.setPixelColor(i,strip.Color(0,255,0)); // 백색(전력 가장 많이 먹음)
+          strip.show();
+          delay(100);
+      }
+      
       for(int i=0; i<9; i++){
         memcpy(&buffer1[4],&correct[i],sizeof(correct[i]));
 
@@ -644,34 +655,5 @@ void loop(){
       }
       happy();
     }
-  }
-
-  
-
-//네오픽셀
-  for(int i=0; i<strip.numPixels(); i++){
-    strip.setPixelColor(i,strip.Color(255,255,255)); // 백색(전력 가장 많이 먹음)
-    strip.show();
-    delay(100);
-  }
-  
-  strip.begin();
-  strip.setPixelColor(0, 255,0,0,0);
-  strip.setPixelColor(1, 0,255,0,0);
-  strip.setPixelColor(2, 0,0,255,0); 
-  strip.setPixelColor(3, 0,0,0,255);
-  strip.show();
-  delay(8000);
-
-  colorWipe(strip.Color(255,0,0,0),0);
-  delay(2000);
-
-}
-
-void colorWipe(uint32_t c, uint8_t wait){
-  for(uint16_t i=0; i<strip.numPixels(); i++){
-    strip.setPixelColor(i,c);
-    strip.show();
-    delay(wait);
   }
 }
