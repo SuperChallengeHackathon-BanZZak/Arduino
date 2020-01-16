@@ -10,9 +10,8 @@
 #define BRIGHTNESS 50
 
 LedControl lc = LedControl(12,11,10,4);
-SoftwareSerial BTSerial(2,3);
+SoftwareSerial BTSerial(3,2);
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
-
 
 void normal(){
   byte nor[2][8] ={
@@ -581,13 +580,69 @@ void setup(){
   }
 }
 
+byte buffer1[4+1][8]={
+  {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000
+  },
+  {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000
+  },
+  {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000
+  },
+  {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000
+  },
+  {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000
+  }
+};
 
 void loop(){
-  byte buffer1[4+1][8];
+  
   if(BTSerial.available()){
+    Serial.write(BTSerial.read());
     char bt;
     bt=BTSerial.read();
     if(bt=='s'){              //시작
+      for(int num=0; num<4; num++){
+        lc.clearDisplay(num);
+      }
       normal();  
       for(int i=0; i<strip.numPixels(); i++){
           strip.setPixelColor(i,strip.Color(255,255,255)); // 백색(전력 가장 많이 먹음)
@@ -614,14 +669,18 @@ void loop(){
           }
 
           for(int i=0; i<8; i++){
-            lc.setRow(0,i,buffer1[0][i]);
-            lc.setRow(1,i,buffer1[1][i]);
-            lc.setRow(2,i,buffer1[2][i]);
-            lc.setRow(3,i,buffer1[3][i]);
+            lc.setRow(0,i,buffer1[3][i]);
+            lc.setRow(1,i,buffer1[2][i]);
+            lc.setRow(2,i,buffer1[1][i]);
+            lc.setRow(3,i,buffer1[0][i]);
           }
           delay(10);
         }
       }
+      for(int num=0; num<4; num++){
+        lc.clearDisplay(num);
+      }
+      delay(10);
       angry();
       
     }
@@ -645,15 +704,22 @@ void loop(){
           }
 
           for(int i=0; i<8; i++){
-            lc.setRow(0,i,buffer1[0][i]);
-            lc.setRow(1,i,buffer1[1][i]);
-            lc.setRow(2,i,buffer1[2][i]);
-            lc.setRow(3,i,buffer1[3][i]);
+            lc.setRow(0,i,buffer1[3][i]);
+            lc.setRow(1,i,buffer1[2][i]);
+            lc.setRow(2,i,buffer1[1][i]);
+            lc.setRow(3,i,buffer1[0][i]);
           }
           delay(10);
         }
       }
+      for(int num=0; num<4; num++){
+        lc.clearDisplay(num);
+      }
+      delay(10);
       happy();
     }
+  }
+  else{
+    
   }
 }
