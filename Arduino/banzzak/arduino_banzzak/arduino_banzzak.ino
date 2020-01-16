@@ -2,128 +2,254 @@
 #include <LedControl.h>
 #include <SoftwareSerial.h>
 #ifdef __AVR__
-#include <avr/power.h>
+ #include <avr/power.h>
 #endif
 
 #define PIN 6
-#define NUM_LEDS 4
-#define BRIGHTNESS 50
+#define LED_COUNT 33
 
 LedControl lc = LedControl(12,11,10,4);
 SoftwareSerial BTSerial(3,2);
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(LED_COUNT, PIN, NEO_GRB + NEO_KHZ800);
 
 void normal(){
   byte nor[2][8] ={
   {
-    B00111100,
-    B01000010,
-    B01000010,
-    B01011010,
-    B01011010,
-    B01000010,
-    B01000010,
-    B00111100
+    B00000000,
+    B01111110,
+    B10000001,
+    B10011001,
+    B10011001,
+    B10000001,
+    B01111110,
+    B00000000
   },
   {
-    B00111100,
-    B01000010,
-    B01000010,
-    B01011010,
-    B01011010,
-    B01000010,
-    B01000010,
-    B00111100
+    B00000000,
+    B01111110,
+    B10000001,
+    B10011001,
+    B10011001,
+    B10000001,
+    B01111110,
+    B00000000
   }
   };
 
   for(int j=0; j<8; j++){
-    lc.setRow(1,j,nor[0][j]);    
-    lc.setRow(2,j,nor[1][j]);
+    lc.setRow(0,j,nor[0][j]);    
+    lc.setRow(1,j,nor[1][j]);
   }
 }
 
-void happy(){
-  byte hap[6][8] ={
+void happy2(){
+  byte hap2[6][8] ={
   {
-    B00111100,
-    B01000010,
-    B01000010,
-    B01011010,
-    B01011010,
-    B01000010,
-    B01000010,
-    B00111100
-  },
-  {
-    B00111100,
-    B01000010,
-    B01000010,
-    B01011010,
-    B01011010,
-    B01000010,
+    B00000000,
+    B01111110,
+    B10000001,
+    B10011001,
+    B10011001,
+    B10000001,
     B01111110,
     B00000000
   },
   {
-    B00111100,
-    B01000010,
-    B01000010,
-    B01011010,
-    B01011010,
-    B01111110,
     B00000000,
+    B01111110,
+    B10000010,
+    B10011010,
+    B10011010,
+    B10000010,
+    B01111110,
     B00000000
   },
   {
-    B00111100,
-    B01000010,
-    B01000010,
-    B01011010,
-    B01111110,
     B00000000,
-    B00000000,
+    B01111100,
+    B10000100,
+    B10011100,
+    B10011100,
+    B10000100,
+    B01111100,
     B00000000
   },
   {
-    B00111100,
-    B01000010,
-    B01000010,
-    B01111110,
     B00000000,
-    B00000000,
-    B00000000,
+    B01111000,
+    B10001000,
+    B10011000,
+    B10011000,
+    B10001000,
+    B01111000,
     B00000000
   },
   {
-    B00111100,
-    B01111110,
-    B01000010,
     B00000000,
+    B01110000,
+    B10010000,
+    B10010000,
+    B10010000,
+    B10010000,
+    B01110000,
+    B00000000
+  },
+  {
     B00000000,
-    B00000000,
-    B00000000,
+    B01110000,
+    B11000000,
+    B11000000,
+    B11000000,
+    B11000000,
+    B01110000,
     B00000000
   }
 };
 
 for(int j=0; j<6; j++){
   for(int k=0; k<8; k++){
-    lc.setRow(1,k,hap[j][k]);
-    lc.setRow(2,k,hap[j][k]);
+    lc.setRow(0,k,hap2[j][k]);
+    lc.setRow(1,k,hap2[j][k]);
   }
-  delay(200);
+  delay(100);
 }
-delay(1000);
+delay(500);
 
 for(int j=0; j<6; j++){
   for(int k=0; k<8; k++){
-    lc.setRow(1,k,hap[5-j][k]);
-    lc.setRow(2,k,hap[5-j][k]);
+    lc.setRow(0,k,hap2[5-j][k]);
+    lc.setRow(1,k,hap2[5-j][k]);
   }
-  delay(200);
+  delay(100);
 }
 }
+
+
+void angry2(){
+  byte angry_left2[5][8] ={
+  {
+    B00000000,
+    B01111110,
+    B10000001,
+    B10011001,
+    B10011001,
+    B10000001,
+    B01111110,
+    B00000000
+  },
+  {
+    B00000000,
+    B00111110,
+    B01000001,
+    B10001101,
+    B10001101,
+    B10000001,
+    B01111110,
+    B00000000
+  },
+  {
+    B00000000,
+    B00011110,
+    B00100001,
+    B01001101,
+    B10001101,
+    B10000001,
+    B01111110,
+    B00000000
+  },
+  {
+    B00000000,
+    B00001110,
+    B00010001,
+    B00100101,
+    B01001101,
+    B10000001,
+    B01111110,
+    B00000000
+  },
+  {
+    B00000000,
+    B00000110,
+    B00001001,
+    B00010101,
+    B00101101,
+    B01000001,
+    B11111110,
+    B00000000
+  }
+};
+
+byte angry_right2[5][8] ={
+  {
+    B00000000,
+    B01111110,
+    B10000001,
+    B10011001,
+    B10011001,
+    B10000001,
+    B01111110,
+    B00000000
+  },
+  {
+    B00000000,
+    B01111110,
+    B10000001,
+    B10001101,
+    B10001101,
+    B01000001,
+    B00111110,
+    B00000000
+  },
+  {
+    B00000000,
+    B01111110,
+    B10000001,
+    B10001101,
+    B01001101,
+    B00100001,
+    B00011110,
+    B00000000
+  },
+  {
+    B00000000,
+    B01111110,
+    B10000001,
+    B01001101,
+    B00100101,
+    B00010001,
+    B00001110,
+    B00000000
+  },
+  {
+    B00000000,
+    B11111110,
+    B01000001,
+    B00101101,
+    B00010101,
+    B00001001,
+    B00000110,
+    B00000000
+  }
+};
+
+for(int j=0; j<5;j++){
+  for(int k=0; k<8; k++){
+    lc.setRow(0,k,angry_left2[j][k]);
+    lc.setRow(1,k,angry_right2[j][k]);
+  }
+  delay(100);
+}
+delay(500);
+for(int j=0; j<5;j++){
+  for(int k=0; k<8; k++){
+    lc.setRow(0,k,angry_left2[4-j][k]);
+    lc.setRow(1,k,angry_right2[4-j][k]);
+  }
+  delay(100);
+}
+}
+
+
 
 void angry(){
   byte angry_left[5][8] ={
@@ -234,333 +360,22 @@ byte angry_right[5][8] ={
 
 for(int j=0; j<5;j++){
   for(int k=0; k<8; k++){
-    lc.setRow(1,k,angry_left[j][k]);
-    lc.setRow(2,k,angry_right[j][k]);
+    lc.setRow(0,k,angry_left[j][k]);
+    lc.setRow(1,k,angry_right[j][k]);
   }
-  delay(200);
+  delay(100);
 }
-delay(2000);
+delay(500);
 for(int j=0; j<5;j++){
   for(int k=0; k<8; k++){
-    lc.setRow(1,k,angry_left[4-j][k]);
-    lc.setRow(2,k,angry_right[4-j][k]);
+    lc.setRow(0,k,angry_left[4-j][k]);
+    lc.setRow(1,k,angry_right[4-j][k]);
   }
-  delay(200);
+  delay(100);
 }
 }
 
-void sad(){
-  byte sad_left[4][8] ={
-  {
-    B00111100,
-    B01000010,
-    B01000010,
-    B01011010,
-    B01011010,
-    B01000010,
-    B01000010,
-    B00111100
-  },
-  {
-    B00011100,
-    B00100010,
-    B01000010,
-    B01011010,
-    B01011010,
-    B01000010,
-    B01000100,
-    B00111000
-  },
-  {
-    B00001100,
-    B00010010,
-    B00100010,
-    B01011010,
-    B01011010,
-    B01000100,
-    B01001000,
-    B00110000
-  },
-  {
-    B00001100,
-    B00010010,
-    B00100010,
-    B01011010,
-    B01010100,
-    B01001000,
-    B01010000,
-    B00100000
-  }
-};
-
-byte sad_right[4][8] ={
-  {
-    B00111100,
-    B01000010,
-    B01000010,
-    B01011010,
-    B01011010,
-    B01000010,
-    B01000010,
-    B00111100
-  },
-  {
-    B00111000,
-    B01000100,
-    B01000010,
-    B01011010,
-    B01011010,
-    B01000010,
-    B00100010,
-    B00011100
-  },
-  {
-    B00110000,
-    B01001000,
-    B01000100,
-    B01011010,
-    B01011010,
-    B00100010,
-    B00010010,
-    B00001100
-  },
-  {
-    B00110000,
-    B01001000,
-    B01000100,
-    B01011010,
-    B00101010,
-    B00010010,
-    B00001010,
-    B00000100
-  }
-};
-
-for(int j=0; j<4; j++){
-  for(int k=0; k<8; k++){
-    lc.setRow(1,k,sad_left[j][k]);
-    lc.setRow(2,k,sad_right[j][k]);
-  }
-  delay(200);
-}
-delay(2000);
-for(int j=0; j<4; j++){
-  for(int k=0; k<8; k++){
-    lc.setRow(1,k,sad_left[3-j][k]);
-    lc.setRow(2,k,sad_right[3-j][k]);
-  }
-  delay(200);
-}
-}
-
-
-byte correct[11][8] ={
-  {
-    B00000000,
-    B00011100,
-    B00100010,
-    B00100000,
-    B00100000,
-    B00100000,
-    B00100010,
-    B00011100
-  },
-  {
-    B00000000,
-    B00011100,
-    B00100010,
-    B00100010,
-    B00100010,
-    B00100010,
-    B00100010,
-    B00011100
-  },
-  {
-    B00000000,
-    B00111100,
-    B00100010,
-    B00100010,
-    B00111100,
-    B00101000,
-    B00100100,
-    B00100010
-  },
-  {
-    B00000000,
-    B00111100,
-    B00100010,
-    B00100010,
-    B00111100,
-    B00101000,
-    B00100100,
-    B00100010
-  },
-  {
-    B00000000,
-    B00111110,
-    B00100000,
-    B00100000,
-    B00111110,
-    B00100000,
-    B00100000,
-    B00111110
-  },
-  {
-    B00000000,
-    B00011100,
-    B00100010,
-    B00100000,
-    B00100000,
-    B00100000,
-    B00100010,
-    B00011100
-  },
-  {
-    B00000000,
-    B00111110,
-    B00001000,
-    B00001000,
-    B00001000,
-    B00001000,
-    B00001000,
-    B00001000
-  },
-  {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  },
-  {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  },
-  {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  },
- {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  }
-};
-
-
-byte wrong[9][8] ={
-  {
-    B00000000,
-    B00100010,
-    B00100010,
-    B00100010,
-    B00100010,
-    B00101010,
-    B00101010,
-    B00010100
-  },
-  {
-    B00000000,
-    B00111100,
-    B00100010,
-    B00100010,
-    B00111100,
-    B00101000,
-    B00100100,
-    B00100010
-  },
-  {
-    B00000000,
-    B00111100,
-    B01000010,
-    B01000010,
-    B01000010,
-    B01000010,
-    B01000010,
-    B00111100
-  },
-  {
-    B00000000,
-    B00100010,
-    B00100010,
-    B00110010,
-    B00101010,
-    B00100110,
-    B00100010,
-    B00100010
-  },
-  {
-    B00000000,
-    B00011100,
-    B00100010,
-    B00100000,
-    B00100000,
-    B00100110,
-    B00100010,
-    B00011100
-  },
-  {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  },
-  {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  },
-  {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  },
-  {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  }  
-};
-
+volatile int BRIGHTNESS=255;
 
 void setup(){
   //블루투스 세팅
@@ -568,9 +383,9 @@ void setup(){
   pinMode(13,OUTPUT); //Pin 13을 OUTPUT으로 설정
 
   //네오픽셀 세팅
-  strip.setBrightness(BRIGHTNESS);
   strip.begin(); //네오픽셀 제어 시작
   strip.show(); // 네오픽셀 점등
+  strip.setBrightness(BRIGHTNESS);
 
   //도트매트릭스 세팅
   for(int num=0; num<4; num++){     //매트릭스 0번부터 3번까지 세팅
@@ -580,146 +395,57 @@ void setup(){
   }
 }
 
-byte buffer1[4+1][8]={
-  {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  },
-  {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  },
-  {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  },
-  {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  },
-  {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  }
-};
+
+
 
 void loop(){
-  
   if(BTSerial.available()){
-    Serial.write(BTSerial.read());
-    char bt;
+    char one,two,three,bt;
     bt=BTSerial.read();
-    if(bt=='s'){              //시작
-      for(int num=0; num<4; num++){
-        lc.clearDisplay(num);
-      }
-      normal();  
-      for(int i=0; i<strip.numPixels(); i++){
-          strip.setPixelColor(i,strip.Color(255,255,255)); // 백색(전력 가장 많이 먹음)
-          strip.show();
-          delay(100);
-      }
-    }
-    if(bt=='e'){               //끝
-      for(int num=0; num<4; num++){
-        lc.clearDisplay(num);
-      }
-    }
-    if(bt=='w'){              //틀림
-      for(int i=0; i<9; i++){
-        memcpy(&buffer1[4],&wrong[i],sizeof(wrong[i]));
-
-        for(int j=0; j<8; j++){
-          for(int k=0; k<8; k++){
-            buffer1[0][k]=(buffer1[0][k]<<1)|(buffer1[1][k]>>7);
-            buffer1[1][k]=(buffer1[1][k]<<1)|(buffer1[2][k]>>7);
-            buffer1[2][k]=(buffer1[2][k]<<1)|(buffer1[3][k]>>7);
-            buffer1[3][k]=(buffer1[3][k]<<1)|(buffer1[4][k]>>7);
-            buffer1[4][k]=(buffer1[4][k]<<1);
-          }
-
-          for(int i=0; i<8; i++){
-            lc.setRow(0,i,buffer1[3][i]);
-            lc.setRow(1,i,buffer1[2][i]);
-            lc.setRow(2,i,buffer1[1][i]);
-            lc.setRow(3,i,buffer1[0][i]);
-          }
-          delay(10);
-        }
-      }
-      for(int num=0; num<4; num++){
-        lc.clearDisplay(num);
-      }
-      delay(10);
-      angry();
-      
-    }
-    if(bt=='c'){              //맞음
-      for(int i=0; i<strip.numPixels(); i++){
-          strip.setPixelColor(i,strip.Color(0,255,0)); // 백색(전력 가장 많이 먹음)
-          strip.show();
-          delay(100);
-      }
-      
-      for(int i=0; i<9; i++){
-        memcpy(&buffer1[4],&correct[i],sizeof(correct[i]));
-
-        for(int j=0; j<8; j++){
-          for(int k=0; k<8; k++){
-            buffer1[0][k]=(buffer1[0][k]<<1)|(buffer1[1][k]>>7);
-            buffer1[1][k]=(buffer1[1][k]<<1)|(buffer1[2][k]>>7);
-            buffer1[2][k]=(buffer1[2][k]<<1)|(buffer1[3][k]>>7);
-            buffer1[3][k]=(buffer1[3][k]<<1)|(buffer1[4][k]>>7);
-            buffer1[4][k]=(buffer1[4][k]<<1);
-          }
-
-          for(int i=0; i<8; i++){
-            lc.setRow(0,i,buffer1[3][i]);
-            lc.setRow(1,i,buffer1[2][i]);
-            lc.setRow(2,i,buffer1[1][i]);
-            lc.setRow(3,i,buffer1[0][i]);
-          }
-          delay(10);
-        }
-      }
-      for(int num=0; num<4; num++){
-        lc.clearDisplay(num);
-      }
-      delay(10);
-      happy();
-    }
-  }
-  else{
+    two=BTSerial.read();
+    three=BTSerial.read();
+    one=BTSerial.read();
     
+    if(bt=='s'){              //시작
+      strip.setBrightness(BRIGHTNESS);
+      for(int i=0; i<strip.numPixels(); i++){
+          strip.setPixelColor(i,strip.Color(BRIGHTNESS,BRIGHTNESS,BRIGHTNESS));
+      }
+      strip.show();
+      normal();
+    }
+    
+    else if(bt=='w'){              //틀림
+      if(BRIGHTNESS<=205){
+        BRIGHTNESS+=50;
+      }
+      strip.setBrightness(BRIGHTNESS);
+      for(int i=0; i<strip.numPixels(); i++){
+          strip.setPixelColor(i,strip.Color(255,0,0));
+      }
+      strip.show();      
+      angry2();
+    }
+    
+    else if(bt=='c'){              //맞음
+      if(BRIGHTNESS>50){
+        BRIGHTNESS-=50;
+      }
+      strip.setBrightness(BRIGHTNESS);
+      for(int i=0; i<strip.numPixels(); i++){
+          strip.setPixelColor(i,strip.Color(0,255,0));
+      }
+      strip.show();
+      happy2();
+    }
+    else if(bt=='e'){               //끝
+      for(int num=0; num<2; num++){
+        lc.clearDisplay(num);
+      }
+      for(int i=0; i<strip.numPixels(); i++){
+          strip.setPixelColor(i,strip.Color(0,0,0));
+      }
+      strip.show();
+    }
   }
 }
